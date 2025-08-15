@@ -105,130 +105,47 @@ mini_agent/
 3. **SimpleLLM**: 简化的语言模型接口
 4. **MiniAgent**: 核心代理类，实现ReAct模式
 
-## 💡 使用示例
+## 💡 快速体验
 
-### 支持的任务类型
+MiniAgent 支持多种任务类型：
 
-<details>
-<summary>📁 文件操作</summary>
+- **📁 文件操作**：创建、读取、编辑文件
+- **🐍 Python代码**：执行Python程序和计算
+- **⚡ 命令行**：运行系统命令
+- **📊 数据处理**：清洗和转换数据
 
-- "列出当前目录的所有文件"
-- "创建一个名为test.txt的文件，内容是Hello World"
-- "读取config.json文件的内容"
-
-</details>
-
-<details>
-<summary>🐍 Python代码执行</summary>
-
-- "用Python计算1到100的和"
-- "生成一个1到10的随机数列表"
-- "创建一个函数计算圆的面积"
-
-</details>
-
-<details>
-<summary>⚡ 命令行操作</summary>
-
-- "查看当前系统的Python版本"
-- "列出所有正在运行的进程"
-- "创建一个新目录"
-
-</details>
-
-<details>
-<summary>📊 数据处理</summary>
-
-- "清洗文本文件中的空行和多余空格"
-- "统计文件中单词的数量"
-- "将CSV数据转换为JSON格式"
-
-</details>
-
-## 🔧 核心原理解析
-
-### ReAct 执行循环
-
-MiniAgent 使用 ReAct（推理-行动）模式：
-
-```python
-while self.state == AgentState.RUNNING and self.current_step < self.max_steps:
-    # Think: 分析当前状态，选择工具
-    should_continue = await self.think()
-    
-    # Act: 执行选定的工具
-    if should_continue:
-        await self.act()
+**示例对话**：
+```
+用户: "在当前目录创建一个hello.txt文件，内容是Hello World"
+代理: 执行文件创建任务...
+结果: ✅ 文件创建成功
 ```
 
-### 工具调用流程
+更多示例请查看 [examples.py](examples.py)
 
-1. **工具注册**: 每个工具实现`BaseTool`接口
-2. **函数定义**: 工具转换为OpenAI函数调用格式
-3. **LLM选择**: 语言模型根据任务选择合适工具
-4. **工具执行**: 代理执行工具并获取结果
-5. **结果反馈**: 将结果添加到对话历史中
+## 📚 文档导航
 
-### 内置工具
+### 🚀 新手必读
+- **[README.md](README.md)** - 项目介绍（当前页面）
+- **[examples.py](examples.py)** - 使用示例
+- **[main_mini.py](main_mini.py)** - 交互模式
 
-| 工具名称 | 功能描述 | 参数 |
-|---------|---------|------|
-| `python_execute` | 执行Python代码 | `code`: 要执行的代码 |
-| `file_editor` | 文件操作 | `action`: read/write/list<br>`path`: 文件路径<br>`content`: 文件内容(写入时) |
-| `bash_execute` | 执行命令行 | `command`: 要执行的命令 |
+### 📖 深入学习
+- **[学习指南](docs/learning-guide.md)** - 深入理解架构和原理
+- **[项目结构](docs/project-structure.md)** - 完整文件说明
 
-## 🔨 扩展开发
+### 🔧 开发相关
+- **[贡献指南](CONTRIBUTING.md)** - 参与开发
+- **[部署指南](docs/deployment.md)** - GitHub部署
+- **[安全策略](SECURITY.md)** - 安全最佳实践
+- **[更新日志](CHANGELOG.md)** - 版本历史
 
-### 添加新工具
+## 🎯 核心特色
 
-```python
-from mini_agent.tools import BaseTool, ToolResult
-
-class MyCustomTool(BaseTool):
-    name = "my_tool"
-    description = "我的自定义工具"
-    parameters = {
-        "type": "object",
-        "properties": {
-            "param1": {"type": "string", "description": "参数1"}
-        },
-        "required": ["param1"]
-    }
-    
-    async def execute(self, param1: str, **kwargs) -> ToolResult:
-        # 实现你的逻辑
-        return ToolResult(success=True, output="执行成功")
-
-# 注册工具
-agent.tools.register_tool(MyCustomTool())
-```
-
-### 自定义系统提示词
-
-```python
-custom_prompt = """
-你是一个专门处理数据分析的AI助手。
-当用户询问数据相关问题时，优先使用Python工具进行分析。
-"""
-
-agent = MiniAgent(llm=llm, system_prompt=custom_prompt)
-```
-
-## 📚 文档
-
-- 📋 [项目文件清单](PROJECT_FILES.md)
-- 📖 [学习指南](LEARNING_GUIDE.md)
-- 🤝 [贡献指南](CONTRIBUTING.md)
-
-## 🎯 学习价值
-
-MiniAgent 保留了智能代理系统的核心概念：
-
-1. **ReAct模式**: 思考-行动循环
-2. **工具抽象**: 统一的工具接口
-3. **记忆系统**: 对话历史管理
-4. **状态管理**: 代理执行状态
-5. **异步编程**: 现代Python异步模式
+- **🧠 ReAct模式** - 完整的推理-行动循环
+- **🔧 可扩展** - 插件式工具系统
+- **📦 轻量级** - 仅400行核心代码
+- **🎓 易学习** - 清晰的代码和丰富文档
 
 ## 🤝 贡献
 
