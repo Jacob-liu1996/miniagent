@@ -4,9 +4,9 @@
 import json
 from typing import Optional
 
-from schema import Message, AgentState, Memory, Role
-from llm import SimpleLLM
-from tools import ToolCollection
+from mini_agent.schema import Message, AgentState, Memory, Role
+from mini_agent.llm import SimpleLLM
+from mini_agent.tools import ToolCollection
 
 
 class MiniAgent:
