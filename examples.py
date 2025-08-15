@@ -3,7 +3,8 @@ MiniAgent 使用示例
 """
 import asyncio
 import os
-from agent import MiniAgent, SimpleLLM
+from mini_agent import MiniAgent
+from mini_agent.llm import SimpleLLM
 
 
 async def example_file_operations():
