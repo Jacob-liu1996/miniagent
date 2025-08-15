@@ -1,0 +1,10 @@
+# MiniAgent - Core Dependencies
+# 
+# This file contains the production dependencies for MiniAgent.
+# For development dependencies, see pyproject.toml [project.optional-dependencies]
+
+# OpenAI API client - for LLM integration
+openai>=1.10.0,<2.0.0
+
+# Pydantic - for data validation and settings management  
+pydantic>=2.0.0,<3.0.0
