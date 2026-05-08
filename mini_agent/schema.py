@@ -3,7 +3,7 @@
 """
 from enum import Enum
 from typing import List, Optional, Dict, Any
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class Role(str, Enum):
@@ -39,7 +39,7 @@ class Message(BaseModel):
 
 
 class Memory(BaseModel):
-    messages: List[Message] = []
+    messages: List[Message] = Field(default_factory=list)
     
     def add_message(self, message: Message):
         self.messages.append(message)
