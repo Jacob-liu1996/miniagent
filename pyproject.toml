@@ -48,6 +48,9 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+parallel = [
+    "mcp>=1.10.0,<2; python_version >= '3.10'"
+]
 dev = [
     "black>=23.0.0",
     "flake8>=6.0.0",
