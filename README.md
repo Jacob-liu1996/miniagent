@@ -123,6 +123,9 @@ MiniAgent 支持多种任务类型：
 
 更多示例请查看 [examples.py](examples.py)
 
+可选的免 Parallel API key 网页搜索与内容提取，请查看
+[Parallel Search MCP 集成](docs/parallel-search.md)（Python 3.10+）。
+
 ## 📚 文档导航
 
 ### 🚀 新手必读
