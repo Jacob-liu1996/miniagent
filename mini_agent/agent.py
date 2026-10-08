@@ -19,6 +19,8 @@ class MiniAgent:
         system_prompt: Optional[str] = None,
         max_steps: int = 10
     ):
+        if max_steps < 1:
+            raise ValueError(f"max_steps must be >= 1, got {max_steps}")
         self.name = name
         self.llm = llm
         self.tools = ToolCollection()
@@ -128,7 +130,8 @@ class MiniAgent:
                 # 准备结果消息
                 if result.success:
                     result_content = result.output
-                    print(f"✅ 工具执行成功: {result_content[:100]}...")
+                    preview = result_content[:100] if result_content else "(empty)"
+                    print(f"✅ 工具执行成功: {preview}...")
                 else:
                     result_content = f"错误: {result.error}"
                     print(f"❌ 工具执行失败: {result.error}")

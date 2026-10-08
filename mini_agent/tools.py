@@ -141,6 +141,12 @@ class BashExecutor(BaseTool):
     
     async def execute(self, command: str, **kwargs) -> ToolResult:
         try:
+            import warnings
+            warnings.warn(
+                "BashExecutor uses shell=True which is a security risk. "
+                "Only use with trusted input.",
+                stacklevel=2,
+            )
             result = subprocess.run(
                 command,
                 shell=True,
